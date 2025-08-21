@@ -61,6 +61,11 @@ module "sg" {
   }
 }
 
+resource "aws_key_pair" "jenkins_key" {
+  key_name   = "jenkins-server-key"
+  public_key = file("~/.ssh/jenkins-server-key.pub")
+}
+
 # EC2
 module "ec2_instance" {
   source = "terraform-aws-modules/ec2-instance/aws"
@@ -68,7 +73,7 @@ module "ec2_instance" {
   name = "Jenkins-Server"
 
   instance_type               = var.instance_type
-  key_name                    = "jenkins-server-key"
+  key_name                    = aws_key_pair.jenkins_key.key_name
   monitoring                  = true
   vpc_security_group_ids      = [module.sg.security_group_id]
   subnet_id                   = module.vpc.public_subnets[0]
