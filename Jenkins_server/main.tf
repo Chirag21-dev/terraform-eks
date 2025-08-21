@@ -61,9 +61,14 @@ module "sg" {
   }
 }
 
+resource "tls_private_key" "jenkins_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "jenkins_key" {
   key_name   = "jenkins-server-key"
-  public_key = file("/home/ubuntu/.ssh/jenkins-server-key.pub" )
+  public_key = tls_private_key.jenkins_key.public_key_openssh
 }
 
 # EC2
@@ -87,3 +92,5 @@ module "ec2_instance" {
     Environment = "dev"
   }
 }
+
+
