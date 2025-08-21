@@ -63,7 +63,7 @@ module "sg" {
 
 resource "aws_key_pair" "jenkins_key" {
   key_name   = "jenkins-server-key"
-  public_key = file("/home/ubuntu/.ssh/jenkins-server-key.pub")
+  public_key = file("/home/ubuntu/.ssh/jenkins-server-key.pub" )
 }
 
 # EC2
