@@ -16,7 +16,7 @@ pipeline {
         stage('Initializing Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks_mod'){
                         sh 'terraform init'
                     }
                 }
