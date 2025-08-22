@@ -22,5 +22,23 @@ pipeline {
                 }
             }
         }
+         stage('Formatting Terraform Code'){
+            steps{
+                script{
+                    dir('EKS'){
+                        sh 'terraform fmt'
+                    }
+                }
+            }
+        }
+        stage('Validating Terraform'){
+            steps{
+                script{
+                    dir('EKS'){
+                        sh 'terraform validate'
+                    }
+                }
+            }
+        }
     }
 }
