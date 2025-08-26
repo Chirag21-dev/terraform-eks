@@ -2,6 +2,10 @@ provider "aws" {
   region = "ap-south-1"
 }
 
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 resource "aws_vpc" "devopsshack_vpc" {
   cidr_block = "10.0.0.0/16"
 
