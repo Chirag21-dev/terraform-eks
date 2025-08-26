@@ -105,9 +105,14 @@ resource "aws_eks_addon" "ebs_csi_driver" {
   resolve_conflicts_on_update = "OVERWRITE"
 }
 
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "k8s_keypair" {
   key_name   = "K8s keypair"
-  public_key = file("/home/ubuntu/.ssh/id_rsa.pub") # Adjust path to your public key
+  public_key = tls_private_key.example.public_key_openssh
 }
 
 
