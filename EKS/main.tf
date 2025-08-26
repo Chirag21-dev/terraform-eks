@@ -105,13 +105,17 @@ resource "aws_eks_addon" "ebs_csi_driver" {
   resolve_conflicts_on_update = "OVERWRITE"
 }
 
+resource "aws_key_pair" "k8s_keypair" {
+  key_name   = "K8s keypair"
+  public_key = file("~/.ssh/id_rsa.pub") # Adjust path to your public key
+}
+
 
 resource "aws_eks_node_group" "devopsshack" {
   cluster_name    = aws_eks_cluster.devopsshack.name
   node_group_name = "devopsshack-node-group"
   node_role_arn   = aws_iam_role.devopsshack_node_group_role.arn
   subnet_ids      = aws_subnet.devopsshack_subnet[*].id
-
   scaling_config {
     desired_size = 3
     max_size     = 3
@@ -121,7 +125,7 @@ resource "aws_eks_node_group" "devopsshack" {
   instance_types = ["t2.medium"]
 
   remote_access {
-    ec2_ssh_key = var.ssh_key_name
+    ec2_ssh_key = aws_key_pair.k8s_keypair.key_name
     source_security_group_ids = [aws_security_group.devopsshack_node_sg.id]
   }
 }
