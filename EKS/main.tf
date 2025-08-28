@@ -103,7 +103,7 @@ resource "aws_eks_cluster" "devopsshack" {
 resource "aws_eks_addon" "ebs_csi_driver" {
   cluster_name    = aws_eks_cluster.devopsshack.name
   addon_name      = "aws-ebs-csi-driver"
-  addon_version = "v1.31.0-eksbuild.1"
+  addon_version = "v1.28.0-eksbuild.1"
   
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
