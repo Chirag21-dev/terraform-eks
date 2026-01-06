@@ -108,6 +108,15 @@ resource "aws_eks_cluster" "devopsshack" {
   #resolve_conflicts_on_update = "OVERWRITE"
 #}
 
+#for cloudwatch monitoring of eks
+#resource "aws_eks_addon" "cloudwatch_observability" {
+#  cluster_name = aws_eks_cluster.devopsshack.name
+#  addon_name   = "amazon-cloudwatch-observability"
+#
+#  resolve_conflicts_on_create = "OVERWRITE"
+#  resolve_conflicts_on_update = "OVERWRITE"
+#}
+
 resource "tls_private_key" "example" {
   algorithm = "RSA"
   rsa_bits  = 4096
