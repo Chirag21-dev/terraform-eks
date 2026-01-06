@@ -100,13 +100,13 @@ resource "aws_eks_cluster" "devopsshack" {
   }
 }
 
-resource "aws_eks_addon" "ebs_csi_driver" {
-  cluster_name    = aws_eks_cluster.devopsshack.name
-  addon_name      = "aws-ebs-csi-driver"
+#resource "aws_eks_addon" "ebs_csi_driver" {
+  #cluster_name    = aws_eks_cluster.devopsshack.name
+  #addon_name      = "aws-ebs-csi-driver"
   
-  resolve_conflicts_on_create = "OVERWRITE"
-  resolve_conflicts_on_update = "OVERWRITE"
-}
+  #resolve_conflicts_on_create = "OVERWRITE"
+  #resolve_conflicts_on_update = "OVERWRITE"
+#}
 
 resource "tls_private_key" "example" {
   algorithm = "RSA"
