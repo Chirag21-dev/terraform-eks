@@ -195,3 +195,8 @@ resource "aws_iam_role_policy_attachment" "worker_node_AmazonEC2ContainerRegistr
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.devopsshack_node_group_role.name
 }
+
+resource "aws_iam_role_policy_attachment" "devopsshack_node_group_cloudwatch_policy" {
+  role       = aws_iam_role.devopsshack_node_group_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
