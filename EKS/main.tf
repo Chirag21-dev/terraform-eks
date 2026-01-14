@@ -100,13 +100,13 @@ resource "aws_eks_cluster" "devopsshack" {
   }
 }
 
-#resource "aws_eks_addon" "ebs_csi_driver" {
-  #cluster_name    = aws_eks_cluster.devopsshack.name
-  #addon_name      = "aws-ebs-csi-driver"
+resource "aws_eks_addon" "ebs_csi_driver" {
+  cluster_name    = aws_eks_cluster.devopsshack.name
+  addon_name      = "aws-ebs-csi-driver"
   
-  #resolve_conflicts_on_create = "OVERWRITE"
-  #resolve_conflicts_on_update = "OVERWRITE"
-#}
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
 
 #for cloudwatch monitoring of eks
 #resource "aws_eks_addon" "cloudwatch_observability" {
@@ -205,7 +205,7 @@ resource "aws_iam_role_policy_attachment" "worker_node_AmazonEC2ContainerRegistr
   role       = aws_iam_role.devopsshack_node_group_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "devopsshack_node_group_cloudwatch_policy" {
+/*resource "aws_iam_role_policy_attachment" "devopsshack_node_group_cloudwatch_policy" {
   role       = aws_iam_role.devopsshack_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-}
+}*/
