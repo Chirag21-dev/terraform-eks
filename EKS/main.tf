@@ -5,6 +5,10 @@ provider "aws" {
 resource "random_id" "suffix" {
   byte_length = 4
 }
+resource "random_string" "suffix" {
+  length  = 6
+  special = false
+}
 
 resource "aws_vpc" "devopsshack_vpc" {
   cidr_block = "10.0.0.0/16"
@@ -123,7 +127,7 @@ resource "tls_private_key" "example" {
 }
 
 resource "aws_key_pair" "k8s_keypair" {
-  key_name   = "K8s keypair"
+  key_name   = "K8s keypair-${random_string.suffix.result}"
   public_key = tls_private_key.example.public_key_openssh
 }
 
