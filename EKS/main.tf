@@ -180,6 +180,34 @@ resource "aws_iam_role_policy_attachment" "ebs_csi_driver_attach" {
   role       = aws_iam_role.devopsshack_cluster_role.name
 }
 
+# For ebs volume role : resource "aws_iam_role" "ebs_csi_driver" {
+  name = "AmazonEKS_EBS_CSI_DriverRole"
+  assume_role_policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+{
+"Effect": "Allow",
+"Principal": {
+"Federated": "arn:aws:iam::231726701699:oidc-provider/https://oidc.eks.us-east-1.amazonaws.com/id/CBCD46860448EDB4151BC3071196F054"
+},
+"Action": "sts:AssumeRoleWithWebIdentity",
+"Condition": {
+"StringEquals": {
+"https://oidc.eks.us-east-1.amazonaws.com/id/CBCD46860448EDB4151BC3071196F054:sub":"system:serviceaccount:kube-system:ebs-csi-controller-sa"
+}
+}
+}
+]
+}
+EOF
+}
+
+# For ebs volume policy: resource "aws_iam_role_policy_attachment" "ebs_csi_driver_attach" {
+role       = aws_iam_role.ebs_csi_driver.name
+policy_arn = "arn:aws:iam::aws:policy/AmazonEBSCSIDriverPolicy"
+}
+
 resource "aws_iam_role" "devopsshack_node_group_role" {
   name = "devopsshack-node-group-role-${random_id.suffix.hex}"
 
