@@ -107,7 +107,7 @@ resource "aws_eks_cluster" "devopsshack" {
 resource "aws_eks_addon" "ebs_csi_driver" {
   cluster_name    = aws_eks_cluster.devopsshack.name
   addon_name      = "aws-ebs-csi-driver"
-  
+  addon_version            = "v1.30.0-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
 }
@@ -143,7 +143,7 @@ resource "aws_eks_node_group" "devopsshack" {
     min_size     = 1
   }
 
-  instance_types = ["t2.medium"]
+  instance_types = ["t2.small"]
 
   remote_access {
     ec2_ssh_key = aws_key_pair.k8s_keypair.key_name
