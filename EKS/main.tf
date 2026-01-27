@@ -19,18 +19,17 @@ resource "aws_vpc" "devopsshack_vpc" {
 }
 
 resource "aws_subnet" "devopsshack_subnet" {
-  //count = 2
-  //count=1
+  count = 2
   vpc_id                  = aws_vpc.devopsshack_vpc.id
-  #cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
-  cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8,0)
-  //availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
-  availability_zone= "us-east-1a"
+  cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
+  //cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8,0)
+  availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
+  //availability_zone= "us-east-1a"
   map_public_ip_on_launch = true
 
   tags = {
-    #Name = "devopsshack-subnet-${count.index}"
-    Name = "devopsshack-subnet
+    Name = "devopsshack-subnet-${count.index}"
+    //Name = "devopsshack-subnet
   }
 }
 
@@ -56,9 +55,9 @@ resource "aws_route_table" "devopsshack_route_table" {
 }
 
 resource "aws_route_table_association" "devopsshack_association" {
-  #count          = 2
-  #subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
-  subnet_id      = aws_subnet.devopsshack_subnet.id 
+  count          = 2
+  subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
+  #subnet_id      = aws_subnet.devopsshack_subnet.id 
   route_table_id = aws_route_table.devopsshack_route_table.id
 }
 
@@ -185,7 +184,8 @@ resource "aws_iam_role_policy_attachment" "devopsshack_cluster_role_policy" {
 //  role       = aws_iam_role.devopsshack_cluster_role.name
 //}
 
-/*For ebs volume role : resource "aws_iam_role" "ebs_csi_driver" {
+#For ebs volume role : 
+/*resource "aws_iam_role" "ebs_csi_driver" {
   name = "AmazonEKS_EBS_CSI_DriverRole"
   assume_role_policy = <<EOF
 {
