@@ -138,8 +138,8 @@ resource "aws_eks_node_group" "devopsshack" {
   node_role_arn   = aws_iam_role.devopsshack_node_group_role.arn
   subnet_ids      = aws_subnet.devopsshack_subnet[*].id
   scaling_config {
-    desired_size = 2
-    max_size     = 2
+    desired_size = 1
+    max_size     = 1
     min_size     = 1
   }
 
