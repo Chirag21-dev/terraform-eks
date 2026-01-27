@@ -54,7 +54,7 @@ resource "aws_route_table" "devopsshack_route_table" {
 }
 
 resource "aws_route_table_association" "devopsshack_association" {
-  count          = 2
+  #count          = 2
   #subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
   subnet_id      = aws_subnet.devopsshack_subnet.id 
   route_table_id = aws_route_table.devopsshack_route_table.id
