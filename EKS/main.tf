@@ -202,8 +202,8 @@ resource "aws_iam_openid_connect_provider" "oidc" {
 #For ebs volume role : 
 resource "aws_iam_role" "ebs_csi_driver" {
   name = "AmazonEKS_EBS_CSI_DriverRole"
-  assume_role_policy = <<EOF
-{
+  assume_role_policy = jsonencode({
+
 "Version": "2012-10-17",
 "Statement": [
 {
@@ -222,8 +222,7 @@ Federated = aws_iam_openid_connect_provider.oidc.arn
 }
 }
 ]
-}
-EOF
+})
 }
 
 # For ebs volume policy: 
