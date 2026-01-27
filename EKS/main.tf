@@ -19,10 +19,12 @@ resource "aws_vpc" "devopsshack_vpc" {
 }
 
 resource "aws_subnet" "devopsshack_subnet" {
-  count = 2
+  //count = 2
+  count=1
   vpc_id                  = aws_vpc.devopsshack_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
-  availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
+  //availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
+  availability_zone= "us-east-1a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -53,7 +55,8 @@ resource "aws_route_table" "devopsshack_route_table" {
 
 resource "aws_route_table_association" "devopsshack_association" {
   count          = 2
-  subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
+  #subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
+  subnet_id      = aws_subnet.devopsshack_subnet.id 
   route_table_id = aws_route_table.devopsshack_route_table.id
 }
 
