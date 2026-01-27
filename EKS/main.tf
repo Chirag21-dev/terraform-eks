@@ -216,7 +216,7 @@ Federated = aws_iam_openid_connect_provider.oidc.arn
 "Condition": {
 "StringEquals": {
 //"https://oidc.eks.us-east-1.amazonaws.com/id/CBCD46860448EDB4151BC3071196F054:sub":"system:serviceaccount:kube-system:ebs-csi-controller-sa"
-"${replace(data.aws_eks_cluster.eks.identity[0].oidc[0].issuer, "https://", "")}:sub" =
+"${replace(data.aws_eks_cluster.eks.identity[0].oidc[0].issuer, "https://", "")}:sub" :
           "system:serviceaccount:kube-system:ebs-csi-controller-sa"
 }
 }
