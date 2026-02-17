@@ -26,7 +26,7 @@ resource "aws_subnet" "devopsshack_subnet" {
 
   tags = {
     
-    Name = "devopsshack-subnet
+    Name = "devopsshack-subnet"
   }
 }
 
