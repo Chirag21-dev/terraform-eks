@@ -176,14 +176,6 @@ resource "aws_iam_role_policy_attachment" "devopsshack_cluster_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-data "aws_eks_cluster" "eks" {
-  name = aws_eks_cluster.devopsshack.name
-}
-
-data "aws_eks_cluster_auth" "eks" {
-  name = aws_eks_cluster.devopsshack.name
-}
-
 resource "aws_iam_openid_connect_provider" "oidc" {
   url = data.aws_eks_cluster.eks.identity[0].oidc[0].issuer
 
