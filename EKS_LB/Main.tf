@@ -1,16 +1,3 @@
-provider "aws" {
-  region = "us-east-2"
-}
-
-provider "helm" {
-  kubernetes {
-    host                   = data.aws_eks_cluster.eks.endpoint
-    cluster_ca_certificate = base64decode(
-      data.aws_eks_cluster.eks.certificate_authority[0].data
-    )
-    token = data.aws_eks_cluster_auth.eks.token
-  }
-}
 
 resource "random_id" "suffix" {
   byte_length = 4
@@ -189,11 +176,6 @@ resource "aws_iam_role_policy_attachment" "devopsshack_cluster_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-//resource "aws_iam_role_policy_attachment" "ebs_csi_driver_attach" {
-//  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-//  role       = aws_iam_role.devopsshack_cluster_role.name
-//}
-
 data "aws_eks_cluster" "eks" {
   name = aws_eks_cluster.devopsshack.name
 }
@@ -278,6 +260,28 @@ resource "aws_iam_role_policy_attachment" "worker_node_AmazonEC2ContainerRegistr
   role       = aws_iam_role.devopsshack_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }*/
+
+data "aws_eks_cluster" "eks" {
+  name = aws_eks_cluster.eks.name
+}
+
+data "aws_eks_cluster_auth" "eks" {
+  name = aws_eks_cluster.eks.name
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.eks.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.eks.token
+}
+
+provider "helm" {
+  kubernetes {
+    host                   = data.aws_eks_cluster.eks.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+    token                  = data.aws_eks_cluster_auth.eks.token
+  }
+}
 
 resource "aws_iam_role" "aws_lb_controller" {
   name = "AmazonEKSLoadBalancerControllerRole-${random_id.suffix.hex}"
