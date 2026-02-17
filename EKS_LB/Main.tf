@@ -18,15 +18,15 @@ resource "aws_vpc" "devopsshack_vpc" {
 resource "aws_subnet" "devopsshack_subnet" {
   count = 2
   vpc_id                  = aws_vpc.devopsshack_vpc.id
-  cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
-  //cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8,0)
-  availability_zone       = element(["us-east-2a", "us-east-2b"], count.index)
-  //availability_zone= "us-east-1a"
+  //cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
+  cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8,0)
+  //availability_zone       = element(["us-east-1a", "us-east-2a"], count.index)
+  availability_zone= "us-east-1a"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "devopsshack-subnet-${count.index}"
-    //Name = "devopsshack-subnet
+    //Name = "devopsshack-subnet-${count.index}"
+    Name = "devopsshack-subnet
   }
 }
 
@@ -53,8 +53,8 @@ resource "aws_route_table" "devopsshack_route_table" {
 
 resource "aws_route_table_association" "devopsshack_association" {
   count          = 2
-  subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
-  #subnet_id      = aws_subnet.devopsshack_subnet.id 
+  //subnet_id      = aws_subnet.devopsshack_subnet[count.index].id
+  subnet_id      = aws_subnet.devopsshack_subnet.id 
   route_table_id = aws_route_table.devopsshack_route_table.id
 }
 
@@ -100,7 +100,7 @@ resource "aws_eks_cluster" "devopsshack" {
   role_arn = aws_iam_role.devopsshack_cluster_role.arn
 
   vpc_config {
-    subnet_ids         = aws_subnet.devopsshack_subnet[*].id
+    subnet_ids         = aws_subnet.devopsshack_subnet.id
     security_group_ids = [aws_security_group.devopsshack_cluster_sg.id]
   }
 }
@@ -137,7 +137,7 @@ resource "aws_eks_node_group" "devopsshack" {
   cluster_name    = aws_eks_cluster.devopsshack.name
   node_group_name = "devopsshack-node-group"
   node_role_arn   = aws_iam_role.devopsshack_node_group_role.arn
-  subnet_ids      = aws_subnet.devopsshack_subnet[*].id
+  subnet_ids      = aws_subnet.devopsshack_subnet.id
   scaling_config {
     desired_size = 1
     max_size     = 1
