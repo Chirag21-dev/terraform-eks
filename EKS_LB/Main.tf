@@ -261,13 +261,6 @@ resource "aws_iam_role_policy_attachment" "worker_node_AmazonEC2ContainerRegistr
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }*/
 
-data "aws_eks_cluster" "eks" {
-  name = aws_eks_cluster.eks.name
-}
-
-data "aws_eks_cluster_auth" "eks" {
-  name = aws_eks_cluster.eks.name
-}
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.eks.endpoint
