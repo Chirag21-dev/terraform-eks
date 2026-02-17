@@ -291,9 +291,6 @@ resource "aws_iam_role_policy_attachment" "aws_lb_controller_attach" {
   policy_arn = "arn:aws:iam::aws:policy/AWSLoadBalancerControllerIAMPolicy"
 }
 
-# -------------------------------
-# Helm Release for AWS Load Balancer Controller
-# -------------------------------
 resource "helm_release" "aws_lb_controller" {
   name       = "aws-load-balancer-controller"
   namespace  = "kube-system"
@@ -316,9 +313,6 @@ resource "helm_release" "aws_lb_controller" {
   }
 }
 
-# -------------------------------
-# Kubernetes ServiceAccount for Controller
-# -------------------------------
 resource "kubernetes_service_account" "aws_lb_controller" {
   metadata {
     name      = "aws-load-balancer-controller"
