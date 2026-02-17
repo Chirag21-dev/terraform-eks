@@ -193,7 +193,6 @@ resource "aws_iam_role" "ebs_csi_driver" {
 {
 "Effect": "Allow",
 "Principal": {
-//"Federated": "arn:aws:iam::231726701699:oidc-provider/https://oidc.eks.us-east-1.amazonaws.com/id/CBCD46860448EDB4151BC3071196F054"
 Federated = aws_iam_openid_connect_provider.oidc.arn
 },
 "Action": "sts:AssumeRoleWithWebIdentity",
