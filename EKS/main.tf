@@ -23,7 +23,7 @@ resource "aws_subnet" "devopsshack_subnet" {
   vpc_id                  = aws_vpc.devopsshack_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
   //cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8,0)
-  availability_zone       = element(["us-east-2a", "us-east-2b"], count.index)
+  availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
   //availability_zone= "us-east-1a"
   map_public_ip_on_launch = true
 
