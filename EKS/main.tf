@@ -179,10 +179,10 @@ resource "aws_iam_role_policy_attachment" "devopsshack_cluster_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-//resource "aws_iam_role_policy_attachment" "ebs_csi_driver_attach" {
-//  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-//  role       = aws_iam_role.devopsshack_cluster_role.name
-//}
+resource "aws_iam_role_policy_attachment" "ebs_csi_driver_attach" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = aws_iam_role.devopsshack_cluster_role.name
+}
 
 data "aws_eks_cluster" "eks" {
   name = aws_eks_cluster.devopsshack.name
