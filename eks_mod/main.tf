@@ -1,3 +1,7 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -28,6 +32,19 @@ module "vpc" {
   }
 
 }
+
+module "iam" {
+  source = "./modules/iam"
+
+  cluster_name = var.cluster_name
+
+  tags = {
+    Environment = var.environment
+    Terraform   = "true"
+    Project     = "EKS-Day20"
+  }
+}
+
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
