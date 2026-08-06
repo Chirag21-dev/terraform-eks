@@ -3,7 +3,7 @@ data "aws_availability_zones" "available" {
 }
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source = "./eks_mod/modules/vpc"
 
   name = "jenkins-vpc"
   cidr = var.vpc_cidr
@@ -34,7 +34,7 @@ module "vpc" {
 }
 
 module "iam" {
-  source = "./modules/iam"
+  source = "./eks_mod/modules/IAM"
 
   cluster_name = var.cluster_name
 
@@ -46,7 +46,7 @@ module "iam" {
 }
 
 module "eks" {
-  source = "terraform-aws-modules/eks/aws"
+  source = "./eks_mod/modules/EKS"
 
   name                   = "my-eks-cluster"
   kubernetes_version     = "1.32"
