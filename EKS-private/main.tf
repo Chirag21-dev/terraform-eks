@@ -6,7 +6,7 @@ module "vpc" {
 }
 
 module "vpc_endpoints" {
-  source = "./modules/vpc-endpoints"
+  source = "./modules/vpc-endpoint"
 
   vpc_id                  = module.vpc.vpc_id
   vpc_cidr                = var.vpc_cidr
