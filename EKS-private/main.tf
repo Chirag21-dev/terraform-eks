@@ -24,7 +24,7 @@ module "eks" {
   vpc_id         = module.vpc.vpc_id
   private_subnets = module.vpc.private_subnets
 
-  depends_on = [
-    module.vpc_endpoints
-  ]
+  //depends_on = [
+   // module.vpc_endpoints
+  //]
 }
