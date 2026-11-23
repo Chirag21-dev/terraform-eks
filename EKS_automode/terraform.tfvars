@@ -1,4 +1,4 @@
-aws_region        = "ap-south-1"
+aws_region        = "us-east-1"
 cluster_name      = "devops-automode-cluster"
 kubernetes_version = "1.31"
 
