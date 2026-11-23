@@ -15,12 +15,12 @@ variable "kubernetes_version" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "Existing VPC ID"
-  type        = string
-}
+#variable "vpc_id" {
+  #description = "Existing VPC ID"
+  #type        = string
+#}
 
-variable "subnet_ids" {
-  description = "Subnets across at least two Availability Zones"
-  type        = list(string)
-}
+#variable "subnet_ids" {
+  #description = "Subnets across at least two Availability Zones"
+  #type        = list(string)
+#}
